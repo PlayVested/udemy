@@ -1,0 +1,13 @@
+/* Custom overrides for bootstrap go in here */
+
+h1 {
+    color: blue;
+}
+
+body {
+    padding: 20px;
+}
+
+.red-bg {
+    background: lightblue;
+}

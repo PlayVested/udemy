@@ -1,0 +1,27 @@
+td {
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    border: 0 solid black;
+}
+
+tr {
+    margin: 0;
+    padding: 0;
+}
+
+.center {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.row {
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+}
+
+.column {
+    border-left-width: 2px;
+    border-right-width: 2px;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Containers</title>
+        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="container.css">
+    </head>
+
+    <body>
+    <!-- 
+        To use bootstrap's grid system you need:
+        - a 'container'
+        - N 'row' class objects
+        - each row has 12 columns
+        - use 'lg' for width > 1200px (large desktop monitor)
+        - use 'md' for width > 992px (laptop)
+        - use 'sm' for width > 768px (table)
+        - use 'xs' for width < 768px (mobile)
+        You don't have to specify larger sizes if they are the same as smaller
+     -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    this is 2 / 12
+                </div>
+                <div class="col-lg-6">
+                    this is 6 / 12
+                </div>
+                <div class="col-lg-4">
+                    this is 4 / 12
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

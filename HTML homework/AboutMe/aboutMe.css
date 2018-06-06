@@ -1,0 +1,82 @@
+/*
+    This is a comment in CSS
+    This file shows the 3 different ways to specify a color in CSS
+*/
+h1 {
+    color: royalblue;
+}
+
+h3 {
+    color: rgb(147, 255, 34);
+    /* color: rgba(r, g, b, a); where a is a float from 0.0 to 1.0 */
+}
+
+li {
+    color: #5f0707;
+}
+
+/*
+    This is how you hook special style to a specific element on a page
+    IDs must be unique within a page
+    User id="uniqueID" in the HTML to hook them together
+*/
+#uniqueID {
+    color: red;
+}
+
+/*
+    This is how to create a reusable style through class tags
+    Any number of elements can use the same class (or multiple classes)
+    User class="myClass" in the HTML to hook them together
+*/
+.myClass {
+    color: yellowgreen;
+}
+
+/*
+    Other selector types
+
+    Star selector: this will apply the properties to everything on the page
+
+    * {
+        property: value;
+    }
+
+
+    Descendant selector: this will apply to elements that match the second
+    element listed that are inside the first element listed
+
+    parent_element child_element {
+        property: value;
+    }
+
+
+    Adjacent selector: applies to the second element that comes directly after 
+    the first listed element
+
+    first_sibling + second_sibling {
+        property: value;
+    }
+
+
+    Attribute selector: applies to elements with the given attribute/value pair
+
+    element[attribute="value"] {
+        property: value;
+    }
+
+    Nth-of-type: applies to the Nth element of the given type in each group
+    It does not repeat, only applies to the first matching in each group
+    Can also use 'even' or 'odd' to select multiple
+
+    element:nth-of-type(number|even|odd) {
+        property: value;
+    }
+
+
+    this is how you can put a background image on the page
+
+    body {
+        background: url(https://img00.deviantart.net/0145/i/2012/280/9/a/random_background_i_made_by_mitoonaf-d5h1xjo.jpg);
+    }
+*/

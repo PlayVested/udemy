@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Log In</title>
+    </head>
+
+    <body>
+        <h1>Registration</h1>
+        <form>
+            <div>
+                <label>First Name:<input type="text" name="FirstName" placeholder="John" required></label>
+                <label>Last Name:<input type="text" name="LastName" placeholder="Smith" required></label>
+            </div>
+            <div>
+                <label>Male<input type="radio" name="Gender" value="male"></label>
+                <label>Female<input type="radio" name="Gender" value="female"></label>
+                <label>Other<input type="radio" name="Gender" value="other"></label>
+            </div>
+            <div>
+                <label>Email:<input type="email" name="Email" placeholder="your email" required></label>
+                <label>Password:<input type="password" name="Password" pattern=".{5,10}" title="5 to 10 characters" required></label>
+            </div>
+            <div>
+                <label>Birthday:
+                    <select name="Month">
+                        <option value="" disabled selected>Month</option>
+                        <option value="Jan">January</option>
+                        <option value="Dec">December</option>
+                    </select>
+                    <select name="Day">
+                        <option value="" disabled selected>Day</option>
+                        <option>01</option>
+                        <option>31</option>
+                    </select>
+                    <select name="Year">
+                        <option value="" disabled selected>Year</option>
+                        <option>2018</option>
+                        <option>1901</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>I agree to the terms and conditions<input type="checkbox" name="Consent" value="true"></label>
+            </div>
+            <div>
+                <input type="submit">
+            </div>
+        </form>
+    </body>
+</html>

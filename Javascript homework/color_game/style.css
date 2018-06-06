@@ -1,0 +1,82 @@
+.bgColor {
+    background-color: #232323;
+    font-family: 'Montserrat', 'Avenir';
+}
+
+.header {
+    text-align: center;
+    color: white;
+    background-color: steelblue;
+    margin: 0;
+    /* height: 200px; */
+    font-weight: normal;
+    text-transform: uppercase;
+    line-height: 1.1;
+    padding: 20px 0;
+}
+
+#colorDisplay {
+    font-size: 200%;
+}
+
+.menu {
+    background-color: white;
+    text-align: center;
+    height: 30px;
+}
+
+#container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#sqrContainer {
+    margin: 20px auto;
+}
+
+.square {
+    width: 30%;
+    float: left;
+    padding-bottom: 30%;
+    margin: 1.66%;
+    border-radius: 15%;
+    transition: background-color 0.5s;
+    --webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+}
+
+.menuText {
+    text-transform: uppercase;
+    font-size: inherit;
+    font-weight: 700;
+    color: steelblue;
+}
+
+.menuLabel {
+    position: relative;
+    top: 3px;
+}
+
+.menuButton {
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    transition: all 0.5s;
+    --webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.menuButton:hover {
+    color: white;
+    background: steelblue;
+}
+
+.selected {
+    color: white;
+    background: steelblue;
+}
+
+div {
+    height: 100%;
+}

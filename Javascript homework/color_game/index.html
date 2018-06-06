@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Color Game</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap.min.css">
+    </head>
+
+    <body class="bgColor">
+        <h1 class="header">The Great <br><span id="colorDisplay">RGB</span><br> Color Game</h1>
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <span class="col-sm-4">
+                        <button id="newGame" class="menuButton menuText">New Colors</button>
+                    </span>
+                    <span class="col-sm-4">
+                        <span id="message" class="menuLabel menuText">temp</span>
+                    </span>
+                    <span class="col-sm-4">
+                        <button id="diffEasy" class="menuButton menuText">Easy</button>
+                        <button id="diffHard" class="menuButton menuText">Hard</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div id="sqrContainer" class="container">
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+        </div>
+    
+        <script src="script.js" type="text/javascript"></script>
+    </body>
+</html>

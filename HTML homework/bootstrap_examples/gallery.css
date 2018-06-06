@@ -1,0 +1,12 @@
+body {
+    padding-top: 70px;
+}
+
+.dark {
+    background: darkblue;
+    color: white;
+}
+
+.spacer {
+    margin-bottom: 15px;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>About Me</title>
+
+        <!--
+            Link to an external stylesheet
+            Style defs always goes in the header section
+        -->
+        <link rel="stylesheet" type="text/css" href="aboutMe.css">
+
+        <!--
+            Inline version for styling
+            Not generally preferred because it is harder to reuse
+            Useful for locally overriding styles though
+        -->
+        <style type="text/css">
+            li {
+                color: grey;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>About Me</h1>
+
+        <h3>My Hobbies</h3>
+
+        <ul>
+            <li>Magic</li>
+            <li id="uniqueID" class="myClass">exercise</li>
+            <li>video games</li>
+            <li class="myClass">Travel</li>
+            <li class="myClass">Cooking</li>
+        </ul>
+    </body>
+</html>
