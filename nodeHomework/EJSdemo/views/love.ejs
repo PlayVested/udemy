@@ -1,0 +1,20 @@
+<!--
+    This template has variable substitution and control flow logic
+
+    This style of EJS tag will render the returned value as HTML
+    <%= %>
+    
+    This style tag is used to wrap JS that doesn't return anything or shouldn't be rendered as HTML
+    <% %>
+-->
+<% include partials/header %>
+
+<h1>You fell in love with <%= thingVar %></h1>
+
+<ul>
+<% listContent.forEach((item) => { %>
+    <li> <%= item %>
+<% }) %>
+</ul>
+
+<% include partials/footer %>
