@@ -7,16 +7,23 @@ https://ifttt.com
 More web API resources
 https://www.programmableweb.com/
 
+EJS
+===
+
+<% code %> - doesn't render anything, used for control flow
+<%- code %> - runs the code and renders the result
+<%= variable %> - renders the value of 'variable'
+
 RESTful routes:
-Name        Route               HTTP Verb       Purpose
-=======================================================
-index       /things             GET             List all `things`
-new         /things/new         GET             Show new `thing` form
-create      /things             POST            Create new `thing`, then redirect somewhere (typically back to `index`)
-show        /things/:id         GET             Show info about a specific `thing`
-edit        /things/:id/edit    GET             Show edit form for one `thing`
-update      /things/:id         PUT             Update a particular `thing`, then redirect somewhere (typically back to `index`)
-destroy     /things/:id         DELETE          Delete a particular `thing`, then redirect somewhere (typically back to `index`)
+Name        Route               HTTP Verb       Purpose                                                                             Mongoose Method
+===================================================================================================================================================
+index       /things             GET             List all `things`                                                                   Thing.find()
+new         /things/new         GET             Show new `thing` form                                                               N/A
+create      /things             POST            Create new `thing`, then redirect somewhere (typically back to `index`)             Thing.create()
+show        /things/:id         GET             Show info about a specific `thing`                                                  Thing.findById()
+edit        /things/:id/edit    GET             Show edit form for one `thing`                                                      Thing.findById()
+update      /things/:id         PUT             Update a particular `thing`, then redirect somewhere (typically back to `index`)    Thing.findByIdAndUpdate()
+destroy     /things/:id         DELETE          Delete a particular `thing`, then redirect somewhere (typically back to `index`)    Thing.findByIdAndRemove()
 
 MongoDB Notes:
     run `mongod` to start the Mongo server locally

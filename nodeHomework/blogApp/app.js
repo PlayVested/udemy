@@ -1,16 +1,22 @@
 // npm install express body-parser mongoose request ejs --save
 const express = require('express');
 const app = express();
+const expressSanitizer = require('express-sanitizer');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 // const request = require('request');
 
-app.use(express.static("public"));
-app.use(express.static("../../lib"));
+app.use(express.static('public'));
+app.use(express.static('../../lib'));
+app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
 // 'body-parse' takes form data and builds a JS object out of it that we can manipulate
 app.use(bodyParser.urlencoded({extended: true}));
+
+// this must come after body parser
+app.use(expressSanitizer());
 
 mongoose.connect('mongodb://localhost/blogApp'); // add ':27017' to the address if it needs a port
 
@@ -68,25 +74,55 @@ app.get('/blogs', (req, res) => {
     });
 });
 
+app.post('/blogs', (req, res) => {
+    const blog = req.body.blog;
+    blog.body = req.sanitize(blog.body);
+    BlogEntry.create(blog, (err, newBlogEntry) => {
+        if (err) {
+            console.err(`Error: ${err}`);
+        } else {
+            res.redirect('/blogs');
+        }
+    });
+});
+
 app.get('/blogs/new', (req, res) => {
     res.render('new');
 });
 
 app.get('/blogs/:id', (req, res) => {
-    BlogEntry.findById(req.params.id, (err, blogEntries) => {
+    BlogEntry.findById(req.params.id, (err, blogEntry) => {
         if (err) {
-            console.err(`Error: ${err}`);
+            console.error(`Error: ${err}`);
         } else {
-            res.render('show', {blogEntries});
+            res.render('show', {blog: blogEntry});
         }
     });
 });
 
-app.post('/blog', (req, res) => {
-    const title = req.body.title;
-    const image = req.body.image;
-    const body = req.body.body;
-    BlogEntry.create({title, image, body}, (err, newBlogEntry) => {
+app.put('/blogs/:id', (req, res) => {
+    req.body.blog.body = req.sanitize(req.body.blog.body);
+    BlogEntry.findByIdAndUpdate(req.params.id, req.body.blog, (err, blogEntry) => {
+        if (err) {
+            console.err(`Error: ${err}`);
+        } else {
+            res.redirect('/blogs/' + req.params.id, {blog: blogEntry});
+        }
+    });
+});
+
+app.get('/blogs/:id/edit', (req, res) => {
+    BlogEntry.findById(req.params.id, (err, blogEntry) => {
+        if (err) {
+            console.err(`Error: ${err}`);
+        } else {
+            res.render('edit', {blog: blogEntry});
+        }
+    });
+});
+
+app.delete('/blogs/:id', (req, res) => {
+    BlogEntry.findByIdAndRemove(req.params.id, (err) => {
         if (err) {
             console.err(`Error: ${err}`);
         } else {
