@@ -9,6 +9,12 @@
             "request": "launch",
             "name": "Launch API request",
             "program": "${workspaceFolder}/nodeHomework/APIs/app.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Yelp Camp",
+            "program": "${workspaceFolder}/nodeHomework/yelpCamp/app.js"
         }
     ]
 }

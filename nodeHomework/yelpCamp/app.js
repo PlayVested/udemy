@@ -1,8 +1,12 @@
 const express = require('express');
 const app = express();
+
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const request = require('request');
+
+const Campground = require('./models/campground');
+const seedData = require('./seedData');
 
 app.use(express.static("public"));
 app.use(express.static("../../lib"));
@@ -13,54 +17,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 mongoose.connect('mongodb://localhost/yelpCamp'); // add ':27017' to the address if it needs a port
 
-// schema setup
-const campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String,
-});
-const Campground = mongoose.model('Campground', campgroundSchema);
-
-function createCampground(campground) {
-    Campground.create(campground, (err, newCampground) => {
-        if (err) {
-            console.error(`Error: ${err}`);
-        } else {
-            console.error(`Created: ${newCampground}`);
-        }
-    });
-}
-
-// This static data was moved to the mongoDB
-const defaultCampgrounds = [
-    {
-        name: 'yellowstone',
-        image: 'http://www.wildnatureimages.com/images%203/060731-372..jpg',
-        description: 'this is my description',
-    },
-    {
-        name: 'backyard',
-        image: 'https://cl9r93gnrb42o3l0v1aawby1-wpengine.netdna-ssl.com/wp-content/uploads/2018/02/Camping.jpg',
-        description: 'totally pretty',
-    },
-    {
-        name: 'your mom`s house',
-        image: 'https://media.istockphoto.com/photos/golden-sunrise-illuminating-tent-camping-dramatic-mountain-landscape-picture-id526564828?k=6&m=526564828&s=612x612&w=0&h=dGJ7atG6qx7zMs0JNLCLcxQ5SAnWbQDlw5wFljirYLM=',
-        description: 'the best ever',
-    },
-];
-
-// if there is nothing in the DB, populate it with a couple enrties
-Campground.find({}, (err, campgrounds) => {
-    if (err) {
-        console.error(`Error: ${err}`);
-    } else if (campgrounds.length === 0) {
-        console.log('Createing default campgrounds');
-        for (let c of defaultCampgrounds) {
-            createCampground(c);
-        }
-    }
-});
+// maybe populate the DB with some starting data
+seedData();
 
 app.get('/', (req, res) => {
     res.render('home');
@@ -81,7 +39,7 @@ app.get('/campgrounds/new', (req, res) => {
 });
 
 app.get('/campgrounds/:id', (req, res) => {
-    Campground.findById(req.params.id, (err, campground) => {
+    Campground.findById(req.params.id).populate('comments').exec((err, campground) => {
         if (err) {
             console.err(`Error: ${err}`);
         } else {
