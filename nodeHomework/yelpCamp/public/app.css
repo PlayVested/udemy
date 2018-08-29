@@ -2,3 +2,19 @@
     width: 30%;
     margin: 25px auto;
 }
+
+.img-thumbnail img {
+    width: 100%;
+}
+
+.img-thumbnail {
+    padding: 0;
+}
+
+.img-thumbnail .caption {
+    padding: 9px;
+}
+
+.delete-form {
+    display: inline;
+}

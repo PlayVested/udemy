@@ -23,32 +23,36 @@ const defaultCampgrounds = [
 const defaultComments = [
     {
         text: 'This is the first comment!',
-        author: 'Your mom',
+        author: {
+            username: 'Your mom',
+        },
     },
     {
         text: 'It is getting to be the witching hour',
-        author: 'An old guy',
+        author: {
+            username: 'An old guy',
+        },
     },
     {
         text: 'I want to sleep',
-        author: 'me',
+        author: {
+            username: 'me',
+        },
     },
 ];
-let commentIdx = 0;
 
-function createCampground(campground) {
+function createCampground(campground, comment) {
     Campground.create(campground, (err, newCampground) => {
         if (err) {
             console.error(`Error: ${err}`);
         } else {
-            console.error(`Created: ${newCampground}`);
-            // const commentIdx = defaultCampgrounds.indexOf(newCampground);
-            Comment.create(defaultComments[commentIdx++], (err, comment) => {
+            Comment.create(comment, (err, comment) => {
                 if (err) {
                     console.error(err);
                 } else {
                     newCampground.comments.push(comment);
                     newCampground.save();
+                    console.error(`Created: ${newCampground}`);
                 }
             });
         }
@@ -58,18 +62,19 @@ function createCampground(campground) {
 // if there is nothing in the DB, populate it with a couple enrties
 module.exports = () => {
     // uncomment this if you want to clear the DB first
-    Campground.remove({}, (err) => {
-        console.log('All campgrounds have been removed');
-    });
+    // Campground.remove({}, (err) => {
+    //     console.log('All campgrounds have been removed');
+    // });
 
     Campground.find({}, (err, campgrounds) => {
         if (err) {
             console.error(`Error: ${err}`);
         } else if (campgrounds.length === 0) {
             console.log('Createing default campgrounds');
-            for (let c of defaultCampgrounds) {
-                createCampground(c);
-            }
+            defaultCampgrounds.forEach((campground, idx) => {
+                const comment = defaultComments[idx];
+                createCampground(campground, comment);
+            });
         } else {
             console.log('There is already campground data');
         }

@@ -14,9 +14,13 @@
                     </div>
                     <div class="">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link" href="/">login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/">sign up</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/">log out</a></li>
+                            <% if (user) { %>
+                                <li class="nav-item nav-link">Welcome, <%= user.username %></li>
+                                <li class="nav-item"><a class="nav-link" href="/logout">log out</a></li>
+                            <% } else { %>
+                                <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/register">sign up</a></li>
+                            <% } %>
                         </ul>
                     </div>
                 </div>

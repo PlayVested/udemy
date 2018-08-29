@@ -1,16 +1,41 @@
 const express = require('express');
 const app = express();
+const expressSession = require('express-session');
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const request = require('request');
+const methodOverride = require('method-override');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
-const Campground = require('./models/campground');
+const User = require('./models/user');
 const seedData = require('./seedData');
 
-app.use(express.static("public"));
+const campgroundRoutes = require('./routes/campgrounds');
+const commentRoutes = require('./routes/comments');
+const indexRoutes = require('./routes/index');
+
+app.use(express.static(__dirname + "/public"));
 app.use(express.static("../../lib"));
+app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
+
+// set up express to store session info in the app
+app.use(expressSession({
+    secret: 'This is my super secret message used to encode things',
+    resave: false,
+    saveUninitialized: false,
+}));
+
+// these need to come after the express session is set up with the secret
+app.use(passport.initialize());
+app.use(passport.session());
+
+// tell passport how to deal with the User in the session
+// these are provided by passportLocalMongoose
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // 'body-parse' takes form data and builds a JS object out of it that we can manipulate
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,47 +45,17 @@ mongoose.connect('mongodb://localhost/yelpCamp'); // add ':27017' to the address
 // maybe populate the DB with some starting data
 seedData();
 
-app.get('/', (req, res) => {
-    res.render('home');
+// this will inject the signed in user to all pages
+// so we can reference it on any page
+app.use((req, res, next) => {
+    res.locals.user = req.user;
+    next();
 });
 
-app.get('/campgrounds', (req, res) => {
-    Campground.find({}, (err, campgrounds) => {
-        if (err) {
-            console.err(`Error: ${err}`);
-        } else {
-            res.render('index', {campgrounds});
-        }
-    });
-});
-
-app.get('/campgrounds/new', (req, res) => {
-    res.render('new');
-});
-
-app.get('/campgrounds/:id', (req, res) => {
-    Campground.findById(req.params.id).populate('comments').exec((err, campground) => {
-        if (err) {
-            console.err(`Error: ${err}`);
-        } else {
-            res.render('show', {campground});
-        }
-    });
-});
-
-app.post('/campgrounds', (req, res) => {
-    const name = req.body.name;
-    const image = req.body.image;
-    const description = req.body.description;
-    // campgrounds.push({name, image});
-    Campground.create({name, image, description}, (err, newCampground) => {
-        if (err) {
-            console.err(`Error: ${err}`);
-        } else {
-            res.redirect('/campgrounds');
-        }
-    });
-});
+// wire up all the sub-routes
+app.use('/campgrounds', campgroundRoutes);
+app.use('/campgrounds/:campgroundID/comments', commentRoutes);
+app.use('/', indexRoutes);
 
 app.listen(1979, 'localhost', () => {
     console.log(`listening on port 1979`);
