@@ -3,6 +3,7 @@ const app = express();
 const expressSession = require('express-session');
 
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const passport = require('passport');
@@ -18,6 +19,7 @@ const indexRoutes = require('./routes/index');
 app.use(express.static(__dirname + "/public"));
 app.use(express.static("../../lib"));
 app.use(methodOverride('_method'));
+app.use(flash()); // this needs to come before passport configuration
 app.set('view engine', 'ejs');
 
 // set up express to store session info in the app
@@ -49,6 +51,8 @@ seedData();
 // so we can reference it on any page
 app.use((req, res, next) => {
     res.locals.user = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
     next();
 });
 

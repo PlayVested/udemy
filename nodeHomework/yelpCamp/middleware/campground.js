@@ -9,7 +9,9 @@ module.exports = {
     cacheCampground: (req, res, next) => {
         Campground.findById(req.params.campgroundID, (err, campground) => {
             if (err) {
-                console.error(`Error: ${err}`);
+                console.error(`Error: ${err.message}`);
+                req.flash(`error`, `Campground not found: ${err.message}`);
+                return res.redirect(`back`);
             }
 
             // pass the campground through to the next route
@@ -30,6 +32,8 @@ module.exports = {
                 if (isOwner(req.user, campground, 'creator')) {
                     return next();
                 }
+
+                req.flash(`error`, `You don't have permission for that`);
 
                 // clear out the campground so it isn't used by accident
                 delete res.locals.campground;

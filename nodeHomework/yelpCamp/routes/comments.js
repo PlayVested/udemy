@@ -28,11 +28,13 @@ router.post('/', isLoggedIn, cacheCampground, (req, res) => {
 
         Comment.create(newComment, (err, comment) => {
             if (err) {
-                console.err(`Error: ${err}`);
+                console.err(`Error: ${err.message}`);
+                req.flash(`error`, `Failed to create comment: ${err.message}`);
                 res.redirect('/campgrounds');
             } else {
                 campground.comments.push(comment);
                 campground.save();
+                req.flash(`success`, `Successfully created comment!`);
                 res.redirect(`/campgrounds/${campground._id}`);
             }
         });
@@ -70,7 +72,10 @@ router.delete('/:commentID', userOwnsComment, (req, res) => {
         // removing the comment from the DB cleans up the campground ref as well
         comment.remove((err) => {
             if (err) {
-                console.error(`Error: ${err}`);
+                console.error(`Error: ${err.message}`);
+                req.flash(`error`, `Failed to remove comment: ${err.message}`);
+            } else {
+                req.flash(`success`, `Comment deleted`);
             }
 
             res.redirect(`/campgrounds/${campground._id}`);

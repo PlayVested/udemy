@@ -9,7 +9,9 @@ module.exports = {
     cacheComment: (req, res, next) => {
         Comment.findById(req.params.commentID, (err, comment) => {
             if (err) {
-                console.error(`Error: ${err}`);
+                console.error(`Error: ${err.message}`);
+                req.flash(`error`, `Comment not found: ${err.message}`);
+                return res.redirect(`back`);
             }
 
             // pass the comment through to the next route
@@ -30,6 +32,8 @@ module.exports = {
                 if (isOwner(req.user, comment, 'author')) {
                     return next();
                 }
+
+                req.flash(`error`, `You don't have permission for that`);
 
                 // clear out the comment so it isn't used by accident
                 delete res.locals.comment;

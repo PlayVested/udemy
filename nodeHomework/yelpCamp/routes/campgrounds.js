@@ -12,7 +12,7 @@ const { isOwner } = require('../utils/misc');
 router.get('/', (req, res) => {
     Campground.find({}, (err, campgrounds) => {
         if (err) {
-            console.error(`Error: ${err}`);
+            console.error(`Error: ${err.message}`);
         } else {
             res.render('campgrounds/index', {campgrounds});
         }
@@ -28,7 +28,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 router.get('/:campgroundID', (req, res) => {
     Campground.findById(req.params.campgroundID).populate('comments').exec((err, campground) => {
         if (err) {
-            console.error(`Error: ${err}`);
+            console.error(`Error: ${err.message}`);
         } else {
             res.render('campgrounds/show', {campground, isOwner});
         }
@@ -49,9 +49,10 @@ router.post('/', isLoggedIn, (req, res) => {
     
     Campground.create(newCampground, (err, createdCampground) => {
         if (err) {
-            console.error(`Error: ${err}`);
+            console.error(`Error: ${err.message}`);
         } else {
             console.log('Created: ' + createdCampground);
+            req.flash(`success`, `Successfully created campground!`);
             res.redirect('/campgrounds');
         }
     });
@@ -87,7 +88,10 @@ router.delete('/:campgroundID', userOwnsCampground, (req, res) => {
     if (campground) {
         campground.remove((err) => {
             if (err) {
-                console.error(`Error: ${err}`);
+                console.error(`Error: ${err.message}`);
+                req.flash(`error`, `Failed to remove campground: ${err.message}`);
+            } else {
+                req.flash(`success`, `Campground deleted`);
             }
     
             res.redirect('/campgrounds');
