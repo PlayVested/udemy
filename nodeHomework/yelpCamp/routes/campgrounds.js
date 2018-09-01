@@ -50,6 +50,7 @@ router.post('/', isLoggedIn, (req, res) => {
     Campground.create(newCampground, (err, createdCampground) => {
         if (err) {
             console.error(`Error: ${err.message}`);
+            req.flash(`error`, `Error creating campground: ${err.message}`);
         } else {
             console.log('Created: ' + createdCampground);
             req.flash(`success`, `Successfully created campground!`);
