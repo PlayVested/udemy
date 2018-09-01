@@ -21,7 +21,7 @@ router.post('/register', (req, res) => {
         if (err) {
             console.error(err);
             req.flash(`error`, `Failed to register user: ${err.message}`);
-            return res.render('register');
+            return res.redirect('/register');
         }
 
         // new user has been created
