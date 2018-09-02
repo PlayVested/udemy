@@ -6,15 +6,32 @@
     </div>
 
     <div class="new-campground">
-        <form action="/campgrounds" method="POST">
-            <div class="form-group">
-                <input class="form-control" type="text" name="name" placeholder="Campground name">
+        <form class="form-inline" action="/campgrounds" method="POST">
+            <div class="form-group row">
+                <div class="col-lg-1"></div>
+                <div>
+                    <input class="form-control" type="text" name="name" placeholder="Campground name">
+                </div>
             </div>
-            <div class="form-group">
-                <input class="form-control" type="text" name="image" placeholder="Image URL">
+            <div class="form-group row">
+                <div class="col-lg-1"></div>
+                <div>
+                    <input class="form-control" type="text" name="image" placeholder="Image URL">
+                </div>
             </div>
-            <div class="form-group">
-                <input class="form-control" type="text" name="description" placeholder="Description">
+            <div class="form-group row">
+                <div class="col-lg-1"></div>
+                <div>
+                    <input class="form-control" type="text" name="description" placeholder="Description">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-1">
+                    <label for="campground-price">$</label>
+                </div>
+                <div>
+                    <input id="campground-price" class="form-control campground-price" type="number" name="price" placeholder="Nightly Rate" min="0" step="0.01">
+                </div>
             </div>
             <button class="btn btn-lg btn-primary btn-block">Create</button>
         </form>
