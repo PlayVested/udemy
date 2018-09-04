@@ -13,8 +13,7 @@ app.get(`/about`, (req, res) => {
     res.render(`about`);
 });
 
-const IP = process.env.IP || `localhost`;
 const PORT = process.env.PORT || 1979;
-app.listen(PORT, IP, () => {
-    console.log(`listening on ${IP}:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`listening on port ${PORT}`);
 });
