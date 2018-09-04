@@ -42,7 +42,9 @@ passport.deserializeUser(User.deserializeUser());
 // 'body-parse' takes form data and builds a JS object out of it that we can manipulate
 app.use(bodyParser.urlencoded({extended: true}));
 
-mongoose.connect('mongodb://localhost/yelpCamp'); // add ':27017' to the address if it needs a port
+// fall back on a local DB if one isn't provided through an env variable
+const dbURL = process.env.DATABASEURL || 'mongodb://localhost/yelpCamp';
+mongoose.connect(dbURL); // add ':27017' to the address if it needs a port
 
 // maybe populate the DB with some starting data
 seedData();

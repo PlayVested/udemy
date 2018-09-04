@@ -54,3 +54,33 @@ Commands:
     `drop`:
         db.<collectionName>.drop()
         delete all entries in the given collection
+
+Heroku notes:
+    Need to provide a `start` script in package.json
+    Do NOT specify the IP to listen on for `app.listen( )`
+    PORT should be `const PORT = process.env.PORT || 1979;`
+
+    `heroku login` - connect heroku and git
+
+    `heroku create` - create a new project space to push to
+        Needs to be run from root git directory for the project
+
+    `git push heroku master` - push up all changes from `master` to heroku
+    `git subtree push --prefix subDirPath heroku master` - only push changes from `subDirPath` to heroku
+        Have to use `/` style path seperators
+        Has to be run from root git direcory for the project
+
+    `heroku logs` - shows errors from deployed app
+        Can add `--tail` to keep it open and running
+
+    `heroku open` - shortcut to open the site from the command line
+
+    `heroku ps:scale web=1` - ensure that at least one instance of the app is running
+
+    `heroku config:set <KEY>=<VALUE>` - set env vars from command line for a project
+
+    `heroku run <command>` - connects to remote instance and runs the command
+        output is printed in local terminal
+
+    See project status at:
+        https://dashboard.heroku.com/apps
