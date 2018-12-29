@@ -72,8 +72,13 @@ Heroku notes:
 
     `heroku logs` - shows errors from deployed app
         Can add `--tail` to keep it open and running
+        Can add `--source app` to see stdout and stderr output
+
+    `heroku restart` - force restart the hosted version
 
     `heroku open` - shortcut to open the site from the command line
+
+    `heroku apps:rename newname` - rename the app from the CLI
 
     `heroku ps:scale web=1` - ensure that at least one instance of the app is running
 
